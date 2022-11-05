@@ -123,7 +123,7 @@ class ScoreBoardView(APIView):
             serializer = ScoreSerializer(score_data,many = True)
             return Response(serializer.data, status = status.HTTP_200_OK)
         elif user.is_mentor: 
-            if request.data.get("id") is None : 
+            if request.GET.get("id") is None : 
                 return Response({"message" : "Patient ID is required"},status = status.HTTP_400_BAD_REQUEST)
             else: 
                 try:
