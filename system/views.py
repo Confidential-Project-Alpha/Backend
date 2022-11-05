@@ -1,5 +1,4 @@
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.contrib.auth.hashers import make_password
 
 from rest_framework.views import APIView
