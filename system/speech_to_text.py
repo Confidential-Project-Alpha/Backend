@@ -13,4 +13,5 @@ def speech_to_text(audioFile):
     }
 
     response = requests.request("POST", url, headers=headers, data=audioFile)
+    print(response.text)
     return json.loads(response.text)

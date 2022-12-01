@@ -14,6 +14,9 @@ from .serializers import PatientSerializer,MentorSerializer,UserSerializer,Score
 from .models import Patient,Mentor,ScoreBoard
 from difflib import SequenceMatcher
 
+import base64
+
+
 def similar(a, b):
     return SequenceMatcher(None, a, b).ratio()
 
@@ -156,11 +159,11 @@ def get_read_score(request):
         return Response({
             "message" : "Reference Text not Specified"
         },status = status.HTTP_400_BAD_REQUEST)
-    elif request.data.get("audio") is None: 
+    elif request.data.get("audio") is None:
         return Response({
             "message" : "Audio file is missing"
         })
-    
+
     return Response(get_final_answer(request.data.get("text"),
     request.data.get("audio")),status = status.HTTP_200_OK)
 
@@ -171,6 +174,8 @@ def rapid_color_naming(request):
             "message" : "Reference Text is Missing !!! "
         })
     if request.data.get("audio") is None: 
+     
+        
         return Response({
             "message" : "Audio File is missing"
         },status = status.HTTP_400_BAD_REQUEST)
