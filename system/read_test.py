@@ -2,6 +2,7 @@ import requests
 import base64
 import json
 import time
+from pydub import AudioSegment
 
 subscriptionKey = "24aee5e3da7246b780aed3c3e85010ea" # replace this with your subscription key
 region = "eastus" # replace this with the region corresponding to your subscription key, e.g. westus, eastasia
@@ -41,9 +42,11 @@ def get_final_answer(referenceText, audioData):
                 'Expect': '100-continue' }
 
     # audioFile = open('check.m4a', 'rb')
+    x = AudioSegment.from_file(audioData)
+    x.export("check.wav", format='wav')    # maybe use original resolution to make smaller
 
     # send request with chunked data
-    response = requests.post(url=url, data=get_chunk(audioData), headers=headers)
+    response = requests.post(url=url, data=get_chunk(open("check.wav","rb")), headers=headers)
     # getResponseTime = time.time()
     # audioFile.close()
 
