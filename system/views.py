@@ -117,12 +117,13 @@ class ScoreBoardView(APIView):
 
     def get(self, request):
         user = self.request.user 
-        if request.data.get("type") is None: 
+    
+        if request.GET["type"] not in ["Rapid Color Naming","Reading Comprehension Test","Handwriting Recognition Test","Object Classification Test"]: 
             return Response({"message" : "Type Misssing!!"},status = status.HTTP_400_BAD_REQUEST)
 
         if user.is_patient: 
             patient = Patient.objects.get(patient = user)
-            score_data = ScoreBoard.objects.filter(patient = patient,type_of_test = request.data.get("type"))
+            score_data = ScoreBoard.objects.filter(patient = patient,type_of_test = request.GET["type"])
             serializer = ScoreSerializer(score_data,many = True)
             return Response(serializer.data, status = status.HTTP_200_OK)
         elif user.is_mentor: 
@@ -131,7 +132,7 @@ class ScoreBoardView(APIView):
             else: 
                 try:
                     patient = Patient.objects.get(id = request.data.get("id"))
-                    score_data = ScoreBoard.objects.filter(patient = patient,type_of_test = request.data.get("type"))
+                    score_data = ScoreBoard.objects.filter(patient = patient,type_of_test = request.GET["type"])
                     serializer = ScoreSerializer(score_data,many = True)
                     return Response(serializer.data, status = status.HTTP_200_OK)
                 except:
