@@ -4,7 +4,7 @@ import json
 import time
 from pydub import AudioSegment
 
-subscriptionKey = "24aee5e3da7246b780aed3c3e85010ea" # replace this with your subscription key
+subscriptionKey = "eaa8a25a9d104972a4d873832b931932" # replace this with your subscription key
 region = "eastus" # replace this with the region corresponding to your subscription key, e.g. westus, eastasia
 
 # a common wave header, with zero audio length
